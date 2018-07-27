@@ -1,0 +1,13 @@
+<html>
+<body onload="run()">
+	<script type="text/javascript">
+		function run() {
+			var ws = new WebSocket("ws://localhost:8080/ws/hello");
+			ws.onmessage = function(msg) {
+				console.log("message: " + msg.data.toString());
+			}
+		}
+	</script>
+
+</body>
+</html>
