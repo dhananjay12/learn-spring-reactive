@@ -1,13 +1,13 @@
-package com.mynotes.spring.reactive.remoteservice;
+package com.mynotes.spring.reactive;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RemoteServiceApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RemoteServiceApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 	
 	

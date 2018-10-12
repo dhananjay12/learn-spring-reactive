@@ -13,7 +13,7 @@ import reactor.core.publisher.Flux;
 @RestController
 public class GreetingsRestController {
 
-	@GetMapping(value = "/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	@GetMapping(value = "/greeting/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	Publisher<Greeting> sseGreetings() {
 		Flux<Greeting> delayElements = Flux
 				.<Greeting>generate(sink -> sink.next(new Greeting("Hello @" + Instant.now().toString())))

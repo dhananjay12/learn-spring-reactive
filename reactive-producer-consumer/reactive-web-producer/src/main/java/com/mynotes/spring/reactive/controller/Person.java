@@ -1,4 +1,4 @@
-package com.mynotes.spring.reactive.remoteservice;
+package com.mynotes.spring.reactive.controller;
 
 public class Person {
 
