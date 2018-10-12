@@ -9,4 +9,6 @@ public class RemoteServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RemoteServiceApplication.class, args);
 	}
+	
+	
 }
