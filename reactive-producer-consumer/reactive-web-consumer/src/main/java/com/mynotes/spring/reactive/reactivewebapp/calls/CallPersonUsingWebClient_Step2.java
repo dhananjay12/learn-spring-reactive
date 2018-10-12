@@ -1,4 +1,4 @@
-package com.mynotes.spring.reactive.reactivewebapp.steps;
+package com.mynotes.spring.reactive.reactivewebapp.calls;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -9,9 +9,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.mynotes.spring.reactive.reactivewebapp.Person;
 
-public class Step2a {
+public class CallPersonUsingWebClient_Step2 {
 
-	private static final Logger logger = LoggerFactory.getLogger(Step2a.class);
+	private static final Logger logger = LoggerFactory.getLogger(CallPersonUsingWebClient_Step2.class);
 
 	private static WebClient client = WebClient.create("http://localhost:8080");
 
@@ -19,8 +19,8 @@ public class Step2a {
 
 		Instant start = Instant.now();
 
-		for (int i = 1; i <= 3; i++) {
-			client.get().uri("/person/{id}", i).retrieve().bodyToMono(Person.class);
+		for (int i = 1; i <= 5; i++) {
+			client.get().uri("/person/{id}", i).retrieve().bodyToMono(Person.class).subscribe();
 		}
 
 		logTime(start);

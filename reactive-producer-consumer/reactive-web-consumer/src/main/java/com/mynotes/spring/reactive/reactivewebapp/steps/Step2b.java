@@ -18,13 +18,13 @@ public class Step2b {
 
 	private static final Logger logger = LoggerFactory.getLogger(Step2b.class);
 
-	private static WebClient client = WebClient.create("http://localhost:8081?delay=2");
+	private static WebClient client = WebClient.create("http://localhost:8080");
 
 	public static void main(String[] args) {
 
 		Instant start = Instant.now();
 
-		List<Mono<Person>> list = Stream.of(1, 2, 3)
+		List<Mono<Person>> list = Stream.of(1, 2, 3, 4, 5)
 				.map(i -> client.get().uri("/person/{id}", i).retrieve().bodyToMono(Person.class))
 				.collect(Collectors.toList());
 

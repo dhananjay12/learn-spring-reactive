@@ -1,4 +1,4 @@
-package com.mynotes.spring.reactive.reactivewebapp.steps;
+package com.mynotes.spring.reactive.reactivewebapp.calls;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -10,9 +10,9 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import com.mynotes.spring.reactive.reactivewebapp.Person;
 
-public class Step1 {
+public class CallPersonUsingRestTemplate {
 
-	private static final Logger logger = LoggerFactory.getLogger(Step1.class);
+	private static final Logger logger = LoggerFactory.getLogger(CallPersonUsingRestTemplate.class);
 
 	private static RestTemplate restTemplate = new RestTemplate();
 

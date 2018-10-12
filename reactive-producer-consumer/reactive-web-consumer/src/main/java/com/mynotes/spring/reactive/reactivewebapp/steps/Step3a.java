@@ -6,7 +6,7 @@ import com.mynotes.spring.reactive.reactivewebapp.Person;
 
 public class Step3a {
 
-	private static WebClient client = WebClient.create("http://localhost:8081");
+	private static WebClient client = WebClient.create("http://localhost:8080");
 
 	public static void main(String[] args) {
 
