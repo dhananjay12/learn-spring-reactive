@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.data.r2dbc.core.DatabaseClient;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -14,6 +15,8 @@ import reactor.core.publisher.Flux;
 public class SampleDataInitializer {
 
     private final ReservationRepository reservationRepository;
+
+    private final DatabaseClient databaseClient;
 
     @EventListener(ApplicationReadyEvent.class)
     public void ready() {
@@ -26,6 +29,15 @@ public class SampleDataInitializer {
             .thenMany(reservations)
             .thenMany(this.reservationRepository.findAll())
             .subscribe(log::info);
+
+
+
+        this.databaseClient
+            .select()
+            .from("reservation").as(Reservation.class)
+            .fetch()
+            .all()
+            .subscribe(log::warn);
     }
 
 }
