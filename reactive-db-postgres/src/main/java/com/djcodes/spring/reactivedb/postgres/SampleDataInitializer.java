@@ -14,30 +14,28 @@ import reactor.core.publisher.Flux;
 @Log4j2
 public class SampleDataInitializer {
 
+    private final ReservationService reservationService;
+
     private final ReservationRepository reservationRepository;
 
-    private final DatabaseClient databaseClient;
 
     @EventListener(ApplicationReadyEvent.class)
     public void ready() {
-        Flux<Reservation> reservations = Flux.just("Jane", "John", "Max", "Josh", "Aloy")
-                    .map(name -> new Reservation(null, name))
-                  .flatMap(r -> this.reservationRepository.save(r));
+
+// Wrong name condition
+//        Flux<Reservation> reservationFlux = reservationService
+//            .saveAll("Jane", "John", "Max", "Josh", "Jo");
+
+        Flux<Reservation> reservationFlux = reservationService
+            .saveAll("Jane", "John", "Max", "Josh", "Aloy");
 
         this.reservationRepository
             .deleteAll()
-            .thenMany(reservations)
+            .thenMany(reservationFlux)
             .thenMany(this.reservationRepository.findAll())
             .subscribe(log::info);
 
 
-
-        this.databaseClient
-            .select()
-            .from("reservation").as(Reservation.class)
-            .fetch()
-            .all()
-            .subscribe(log::warn);
     }
 
 }
