@@ -26,17 +26,13 @@ public class WebSocketConfiguration {
 
 	@Bean
 	WebSocketHandler webSocketHandler() {
-		return new WebSocketHandler() {
+		return session -> {
 
-			@Override
-			public Mono<Void> handle(WebSocketSession session) {
-
-				Flux<WebSocketMessage> generate = Flux
-						.<Greeting>generate(sink -> sink.next(new Greeting("Hello @" + Instant.now().toString())))
-						.map(g -> session.textMessage(g.getText())).delayElements(Duration.ofSeconds(1))
-						.doFinally(signalType -> System.out.println("Goodbye"));
-				return session.send(generate);
-			}
+			Flux<WebSocketMessage> generate = Flux
+					.<Greeting>generate(sink -> sink.next(new Greeting("Hello @" + Instant.now().toString())))
+					.map(g -> session.textMessage(g.getText())).delayElements(Duration.ofSeconds(1))
+					.doFinally(signalType -> System.out.println("Goodbye"));
+			return session.send(generate);
 		};
 	}
 	
