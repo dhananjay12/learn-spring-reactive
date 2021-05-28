@@ -47,7 +47,7 @@ class FluxMonoApplicationTests {
     @Test
     public void fluxTestAndError() {
         Flux<String> myFlux = Flux.just("a", "b", "c")
-            .concatWith(Flux.error(new RuntimeException("Error"))).log();
+            .concatWith(Flux.error(new RuntimeException("Error123"))).log();
 
         myFlux.subscribe(System.out::println,
             (e) -> System.err.println(e));
@@ -57,14 +57,14 @@ class FluxMonoApplicationTests {
     @Test
     public void fluxTestAndErrorTest() {
         Flux<String> myFlux = Flux.just("a", "b", "c")
-            .concatWith(Flux.error(new RuntimeException("Error"))).log();
+            .concatWith(Flux.error(new RuntimeException("Error123"))).log();
 
         StepVerifier.create(myFlux)
             .expectNext("a")
             .expectNext("b")
             .expectNext("c")
             //.expectError(RuntimeException.class) //Cannot have both together
-            .expectErrorMessage("Error")
+            .expectErrorMessage("Error123")
             .verify();
 
     }
@@ -93,7 +93,9 @@ class FluxMonoApplicationTests {
      @Test
     public void monoErrorTest(){
 
-        StepVerifier.create(Mono.error(new RuntimeException("Error")).log())
+         Mono<Object> myMono = Mono.error(new RuntimeException("Error")).log();
+
+        StepVerifier.create(myMono)
             .expectErrorMessage("Error")
             .verify();
     }
