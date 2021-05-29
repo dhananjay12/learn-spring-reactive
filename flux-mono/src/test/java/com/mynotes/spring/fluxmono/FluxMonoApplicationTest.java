@@ -1,11 +1,14 @@
 package com.mynotes.spring.fluxmono;
 
 import org.junit.jupiter.api.Test;
+import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-class FluxMonoApplicationTests {
+import java.time.Duration;
+
+class FluxMonoApplicationTest {
 
     @Test
     public void flux() {
@@ -98,6 +101,41 @@ class FluxMonoApplicationTests {
         StepVerifier.create(myMono)
             .expectErrorMessage("Error")
             .verify();
+    }
+
+    @Test
+    public void coldPublishers() throws InterruptedException {
+        Flux<String> myFlux = Flux.just("a", "b", "c", "d", "e", "f")
+                .delayElements(Duration.ofSeconds(1));
+
+        // Subscriber 1
+        myFlux.subscribe(s -> System.out.println("Element in Subscriber 1 :: "+ s));
+
+        Thread.sleep(2000);
+
+        // Subscriber 2
+        myFlux.subscribe(s -> System.out.println("Element in Subscriber 2 :: "+ s));
+
+        Thread.sleep(5000);
+    }
+
+    @Test
+    public void hotPublishers() throws InterruptedException {
+        Flux<String> myFlux = Flux.just("a", "b", "c", "d", "e", "f")
+                .delayElements(Duration.ofSeconds(1));
+
+        // Make myflux hot publisher
+        ConnectableFlux<String> connectableFlux = myFlux.publish();
+        connectableFlux.connect();
+
+        // Subscriber 1
+        connectableFlux.subscribe(s -> System.out.println("Element in Subscriber 1 :: "+ s));
+        Thread.sleep(2000);
+
+        // Subscriber 2
+        connectableFlux.subscribe(s -> System.out.println("Element in Subscriber 2 :: "+ s));
+
+        Thread.sleep(5000);
     }
 
 }
