@@ -2,16 +2,16 @@
 !.mvn/wrapper/maven-wrapper.jar
 .mvn
 mvn*
-
+.DS_Store
 ### STS ###
 .apt_generated
 .classpath
 .factorypath
 .project
 .settings
-.springBeans
+.springBeansrequest.getHeader("X-
 .sts4-cache
-.attach_pid*
+.
 
 ### IntelliJ IDEA ###
 .idea
