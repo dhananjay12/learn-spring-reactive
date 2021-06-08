@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mynotes.microservices.demo</groupId>
+    <groupId>com.mynotes.reactive.demo</groupId>
     <artifactId>learn-spring-reactive-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -17,7 +17,8 @@
         <module>reactive-db-mongo</module>
         <module>reactive-db-postgres</module>
         <module>reactive-producer-consumer</module>
-        <module>reactive-web</module>
+        <module>reactive-web</module>webflux-in-servlet.zip
+        <module>webflux-in-servlet</module>
     </modules>
 
 </project>
