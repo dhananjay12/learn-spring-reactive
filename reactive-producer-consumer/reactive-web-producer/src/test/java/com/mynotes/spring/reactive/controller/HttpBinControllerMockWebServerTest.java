@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -40,13 +42,22 @@ public class HttpBinControllerMockWebServerTest {
     static void setUp() throws IOException {
         mockBackEnd = new MockWebServer();
         mockBackEnd.start();
-        System.setProperty("my.service.url", String.format("http://localhost:%s",mockBackEnd.getPort()));
+        // Use Dynamic Properties register instead of this
+        //System.setProperty("my.service.url", String.format("http://localhost:%s",mockBackEnd.getPort()));
     }
+    @DynamicPropertySource
+    static void registerPgProperties(DynamicPropertyRegistry registry) {
+        registry.add("my.service.url",
+                () -> String.format("http://localhost:%s",mockBackEnd.getPort()));
+    }
+
 
     @AfterAll
     static void tearDown() throws IOException {
         mockBackEnd.shutdown();
     }
+
+
 
     @Test
     public void httpBinAnything() {
