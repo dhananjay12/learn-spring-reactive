@@ -1,4 +1,4 @@
-package com.mynotes.reactive.demo.webfluxinservlet.controller;
+package com.mynotes.reactive.demo.webfluxinservlet.controller.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -42,30 +42,6 @@ public class ApiController {
     public Mono<String> check1() {
 
         return Mono.just("check1");
-    }
-
-    @GetMapping("/check2")
-    public Mono<String> check2(HttpServletRequest request) {
-
-        Enumeration headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-
-            String key = (String) headerNames.nextElement();
-            String value = request.getHeader(key);
-            log.info(String.format("Header '%s' = %s", key, value));
-        }
-        return Mono.just("check2");
-    }
-
-    @GetMapping("/check3")
-    public Mono<String> check3(ServerWebExchange exchange) {
-
-        ServerHttpRequest request = exchange.getRequest();
-        HttpHeaders headers = request.getHeaders();
-        headers.keySet().forEach(key -> {
-            log.info(String.format("Header '%s' = %s", key, headers.get(key).stream().collect(Collectors.joining("|"))));
-        });
-        return Mono.just("check3");
     }
 
     @GetMapping(value ="/delay" , produces= MediaType.TEXT_EVENT_STREAM_VALUE)
