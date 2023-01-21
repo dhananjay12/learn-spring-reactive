@@ -17,8 +17,9 @@
         <module>reactive-db-mongo</module>
         <module>reactive-db-postgres</module>
         <module>reactive-producer-consumer</module>
-        <module>reactive-web</module>webflux-in-servlet.zip
+        <module>reactive-web</module>
         <module>webflux-in-servlet</module>
+        <module>gateway</module>
     </modules>
 
 </project>

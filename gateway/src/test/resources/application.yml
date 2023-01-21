@@ -1,0 +1,16 @@
+eureka:
+  client:
+    enabled: false
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: test
+          uri: http://localhost:${mock.server.port}
+          order: 1
+          predicates:
+            - Path=/test
+logging:
+  level:
+    root: trace
