@@ -10,9 +10,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository;
 import org.springframework.security.web.server.csrf.CsrfToken;
+import org.springframework.security.web.server.csrf.ServerCsrfTokenRequestAttributeHandler;
 import org.springframework.web.server.WebFilter;
 import reactor.core.publisher.Mono;
 
@@ -41,6 +43,7 @@ public class SecurityConfiguration {
                 .and()
                 .csrf()
                 .csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse())
+                .csrfTokenRequestHandler(new ServerCsrfTokenRequestAttributeHandler())
                 .requireCsrfProtectionMatcher(
                         exchange -> {
                             ServerHttpRequest request = exchange.getRequest();
