@@ -15,6 +15,8 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<skip.integration.tests>false</skip.integration.tests>
+		<skip.unit.tests>false</skip.unit.tests>
 		<spring-cloud.version>2021.0.5</spring-cloud.version>
 	</properties>
 	<dependencies>
@@ -76,6 +78,36 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin
+				</artifactId> <!--is designed for running unit tests and if any of the tests fail then it will fail the build immediately.-->
+				<configuration>
+					<!-- Sets the VM argument line used when unit tests are run. -->
+					<argLine>${surefireArgLine}</argLine>
+					<skipTests>${skip.unit.tests}</skipTests>
+					<!-- Excludes integration tests when unit tests are run. -->
+					<excludes>
+						<exclude>**/*IT.java</exclude>
+						<exclude>**/*It.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin
+				</artifactId> <!-- is designed for running integration tests, and decouples failing the build if there are test failures from actually running the tests.-->
+				<configuration>
+					<!-- Sets the VM argument line used when integration tests are run. -->
+					<argLine>${failsafeArgLine}</argLine>
+					<skipTests>${skip.integration.tests}</skipTests>
+					<includes>
+						<include>**/*It.java</include>
+						<include>**/*IT.java</include>
+					</includes>
 				</configuration>
 			</plugin>
 		</plugins>
