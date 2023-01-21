@@ -24,6 +24,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: 'maven'
-      - run: mvn clean install
+      - run: mvn -pl gateway clean install
 
 
