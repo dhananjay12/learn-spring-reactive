@@ -13,4 +13,4 @@ spring:
             - Path=/test
 logging:
   level:
-    root: trace
+    root: debug
